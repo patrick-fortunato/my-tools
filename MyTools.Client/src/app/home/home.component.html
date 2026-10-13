@@ -1,0 +1,19 @@
+<div class="home-container">
+  <h1>My Tools</h1>
+  <p class="subtitle">A collection of utilities I use often.</p>
+
+  @for (category of categories; track category.name) {
+    <section class="category-section">
+      <h2>{{ category.name }}</h2>
+      <div class="tool-grid">
+        @for (tool of category.tools; track tool.route) {
+          <a [routerLink]="tool.route" class="tool-card">
+            <span class="tool-icon">{{ tool.icon }}</span>
+            <h3>{{ tool.name }}</h3>
+            <p>{{ tool.description }}</p>
+          </a>
+        }
+      </div>
+    </section>
+  }
+</div>

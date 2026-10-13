@@ -1,0 +1,101 @@
+<div class="tool-container">
+  <h1>Regex Tester</h1>
+
+  <div class="options-bar">
+    <label class="option">
+      Pattern:
+      <input
+        type="text"
+        [(ngModel)]="pattern"
+        placeholder="Enter regex pattern..."
+        class="input-pattern"
+        spellcheck="false"
+      />
+    </label>
+  </div>
+
+  <div class="options-bar">
+    <span class="flags-label">Flags:</span>
+    <label class="option checkbox-option">
+      <input type="checkbox" [(ngModel)]="flagGlobal" />
+      g (global)
+    </label>
+    <label class="option checkbox-option">
+      <input type="checkbox" [(ngModel)]="flagIgnoreCase" />
+      i (ignore case)
+    </label>
+    <label class="option checkbox-option">
+      <input type="checkbox" [(ngModel)]="flagMultiline" />
+      m (multiline)
+    </label>
+    <label class="option checkbox-option">
+      <input type="checkbox" [(ngModel)]="flagDotAll" />
+      s (dotAll)
+    </label>
+
+    <button (click)="execute()" class="btn-primary" [disabled]="!pattern">
+      Execute
+    </button>
+  </div>
+
+  <div class="input-section">
+    <label for="test-string">Test String</label>
+    <textarea
+      id="test-string"
+      [(ngModel)]="testString"
+      placeholder="Enter text to test against..."
+      rows="8"
+      spellcheck="false"
+    ></textarea>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  @if (matchCount > 0) {
+    <div class="results-section">
+      <div class="match-summary">
+        <strong>{{ matchCount }}</strong> match{{ matchCount !== 1 ? 'es' : '' }} found
+      </div>
+
+      <div class="matches-list">
+        @for (m of matches; track m.index) {
+          <div class="match-item">
+            <div class="match-header">
+              <span class="match-value">"{{ m.value }}"</span>
+              <span class="match-position">Line {{ m.line }}, Col {{ m.column }} (index {{ m.index }})</span>
+            </div>
+
+            @if (m.groups.length > 0) {
+              <table class="groups-table">
+                <thead>
+                  <tr>
+                    <th>Group</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (g of m.groups; track g.name) {
+                    <tr>
+                      <td>{{ g.name }}</td>
+                      <td class="group-value">{{ g.value }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (matchCount === 0 && !errorMessage && testString && pattern) {
+    <div class="no-matches">No matches found.</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear All</button>
+  </div>
+</div>

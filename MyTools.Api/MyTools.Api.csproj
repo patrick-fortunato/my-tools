@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <NoWarn>NU1903</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
+  </ItemGroup>
+
+  <!-- Serve Angular build output from wwwroot -->
+  <ItemGroup>
+    <None Update="wwwroot\**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SpaRoot>..\MyTools.Client</SpaRoot>
+    <SpaDist>$(SpaRoot)\dist\MyTools.Client\browser</SpaDist>
+  </PropertyGroup>
+
+  <!--
+    Build the Angular client and sync its output into wwwroot so Visual Studio
+    (which only serves wwwroot and does not run ng build) always serves the
+    current client. Runs on every build. Set BuildSpa=false to skip, e.g.
+    `dotnet build /p:BuildSpa=false`, when you only changed C#.
+  -->
+  <Target Name="BuildAngularClient" BeforeTargets="Build" Condition="'$(BuildSpa)' != 'false'">
+    <Message Importance="high" Text="Building Angular client (ng build)..." />
+    <Exec Command="npm install" WorkingDirectory="$(SpaRoot)" Condition="!Exists('$(SpaRoot)\node_modules')" />
+    <Exec Command="npm run build" WorkingDirectory="$(SpaRoot)" />
+
+    <Message Importance="high" Text="Syncing Angular output to wwwroot..." />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\wwwroot" />
+    <ItemGroup>
+      <SpaFiles Include="$(SpaDist)\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SpaFiles)"
+          DestinationFiles="@(SpaFiles->'$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+</Project>

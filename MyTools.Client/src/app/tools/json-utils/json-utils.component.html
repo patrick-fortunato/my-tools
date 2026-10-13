@@ -1,0 +1,192 @@
+<div class="tool-container">
+  <h1>JSON Utilities</h1>
+
+  <div class="operation-bar">
+    @for (op of operations; track op.key) {
+      <button
+        [class.active]="operation === op.key"
+        (click)="operation = op.key"
+        class="op-btn"
+      >{{ op.label }}</button>
+    }
+  </div>
+
+  @if (operation === 'query') {
+    <div class="query-bar">
+      <label for="query-input">JSONPath:</label>
+      <input
+        id="query-input"
+        type="text"
+        [(ngModel)]="queryPath"
+        placeholder="$.store.books[0].title"
+        class="query-input"
+      />
+    </div>
+  }
+
+  <div class="panels" [class.compare-mode]="operation === 'compare'">
+    <!-- Input panel -->
+    <div class="panel">
+      <label for="json-input">{{ operation === 'compare' ? 'Left JSON' : 'JSON Input' }}</label>
+      <textarea
+        id="json-input"
+        [(ngModel)]="input"
+        placeholder="Paste JSON here..."
+        rows="18"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <!-- Second input for compare mode -->
+    @if (operation === 'compare') {
+      <div class="panel">
+        <label for="json-input-2">Right JSON</label>
+        <textarea
+          id="json-input-2"
+          [(ngModel)]="input2"
+          placeholder="Paste second JSON here..."
+          rows="18"
+          spellcheck="false"
+        ></textarea>
+      </div>
+    }
+
+    <!-- Text output panel (most operations) -->
+    @if (showTextOutput) {
+      <div class="panel">
+        <label for="json-output">Output</label>
+        <textarea
+          id="json-output"
+          [value]="output"
+          readonly
+          placeholder="Result will appear here..."
+          rows="18"
+          spellcheck="false"
+        ></textarea>
+        <div class="output-actions">
+          <button (click)="copyOutput()" [disabled]="!output" class="btn-sm">Copy</button>
+        </div>
+      </div>
+    }
+
+    <!-- Validate result -->
+    @if (operation === 'validate' && validationResult) {
+      <div class="panel result-panel">
+        <label>Result</label>
+        <div class="validation-result" [class.valid]="validationResult.valid" [class.invalid]="!validationResult.valid">
+          @if (validationResult.valid) {
+            <span class="status-icon">✓</span>
+            <span>Valid JSON</span>
+          } @else {
+            <span class="status-icon">✗</span>
+            <span>{{ validationResult.error }}</span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Tree view -->
+    @if (operation === 'tree' && treeData.length > 0) {
+      <div class="panel result-panel tree-panel">
+        <label>Tree</label>
+        <div class="tree-view">
+          <ng-container *ngTemplateOutlet="treeTemplate; context: { nodes: treeData, depth: 0 }"></ng-container>
+        </div>
+      </div>
+    }
+
+    <!-- Stats view -->
+    @if (operation === 'stats' && stats) {
+      <div class="panel result-panel">
+        <label>Statistics</label>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">Keys</span>
+            <span class="stat-value">{{ stats.keyCount }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Max Depth</span>
+            <span class="stat-value">{{ stats.maxDepth }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Size</span>
+            <span class="stat-value">{{ stats.sizeBytes | number }} bytes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Objects</span>
+            <span class="stat-value">{{ stats.objectCount }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Arrays</span>
+            <span class="stat-value">{{ stats.arrayCount }}</span>
+          </div>
+          @for (entry of stats.types | keyvalue; track entry.key) {
+            <div class="stat-item">
+              <span class="stat-label">{{ entry.key }}</span>
+              <span class="stat-value">{{ entry.value }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Diff view -->
+    @if (operation === 'compare' && diffResult) {
+      <div class="diff-container">
+        <div class="diff-panel">
+          <label>Left</label>
+          <div class="diff-lines">
+            @for (line of diffResult.left; track $index) {
+              <div class="diff-line" [class]="line.type">
+                <span class="line-num">{{ $index + 1 }}</span>
+                <span class="line-text">{{ line.text }}</span>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="diff-panel">
+          <label>Right</label>
+          <div class="diff-lines">
+            @for (line of diffResult.right; track $index) {
+              <div class="diff-line" [class]="line.type">
+                <span class="line-num">{{ $index + 1 }}</span>
+                <span class="line-text">{{ line.text }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="execute()" [disabled]="!input.trim()" class="btn-primary">Execute</button>
+    <button (click)="clear()" class="btn-secondary">Clear All</button>
+  </div>
+</div>
+
+<!-- Tree node recursive template -->
+<ng-template #treeTemplate let-nodes="nodes" let-depth="depth">
+  @for (node of nodes; track node.key) {
+    <div class="tree-node" [style.padding-left.px]="depth * 20">
+      @if (node.children && node.children.length > 0) {
+        <button class="tree-toggle" (click)="toggleNode(node)">
+          {{ node.expanded ? '▼' : '▶' }}
+        </button>
+        <span class="tree-key">{{ node.key }}</span>
+        <span class="tree-type">{{ node.value }}</span>
+        @if (node.expanded) {
+          <ng-container *ngTemplateOutlet="treeTemplate; context: { nodes: node.children, depth: depth + 1 }"></ng-container>
+        }
+      } @else {
+        <span class="tree-leaf">●</span>
+        <span class="tree-key">{{ node.key }}:</span>
+        <span class="tree-value" [class]="node.type">{{ formatValue(node.value) }}</span>
+      }
+    </div>
+  }
+</ng-template>

@@ -1,0 +1,70 @@
+<div class="tool-container">
+  <h1>SQL Formatter / Minifier</h1>
+
+  <div class="options-bar">
+    <div class="mode-toggle">
+      <button [class.active]="mode === 'format'" (click)="mode = 'format'">Format</button>
+      <button [class.active]="mode === 'minify'" (click)="mode = 'minify'">Minify</button>
+    </div>
+
+    @if (mode === 'format') {
+      <label class="option">
+        Keywords:
+        <select [(ngModel)]="keywordCase">
+          <option value="upper">UPPERCASE</option>
+          <option value="lower">lowercase</option>
+          <option value="preserve">Preserve</option>
+        </select>
+      </label>
+
+      <label class="option">
+        Indent:
+        <select [(ngModel)]="indentSize">
+          <option [value]="2">2 spaces</option>
+          <option [value]="4">4 spaces</option>
+          <option [value]="8">8 spaces</option>
+        </select>
+      </label>
+    }
+
+    <button (click)="execute()" [disabled]="!input.trim()" class="btn-primary">
+      {{ mode === 'format' ? 'Format' : 'Minify' }}
+    </button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="sql-input">SQL Input</label>
+      <textarea
+        id="sql-input"
+        [(ngModel)]="input"
+        placeholder="Paste SQL here..."
+        rows="18"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <div class="panel">
+      <label for="sql-output">Output</label>
+      <textarea
+        id="sql-output"
+        [value]="output"
+        readonly
+        placeholder="Result will appear here..."
+        rows="18"
+        spellcheck="false"
+      ></textarea>
+      <div class="output-actions">
+        <button (click)="copyOutput()" [disabled]="!output" class="btn-sm">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear All</button>
+  </div>
+</div>

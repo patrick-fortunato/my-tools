@@ -1,0 +1,194 @@
+.tool-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.options-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color, #f8f9fa);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted, #6c757d);
+
+    select {
+      padding: 0.35rem 0.6rem;
+      border: 1px solid var(--border-color, #ddd);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      background: var(--input-bg, #fff);
+      cursor: pointer;
+
+      &:focus {
+        outline: 2px solid var(--primary-color, #4a90d9);
+        outline-offset: -1px;
+        border-color: transparent;
+      }
+    }
+  }
+
+  .input-sm {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    font-size: 0.85rem;
+
+    &:focus {
+      outline: 2px solid var(--primary-color, #4a90d9);
+      outline-offset: -1px;
+      border-color: transparent;
+    }
+  }
+
+  .input-num {
+    width: 65px;
+  }
+}
+
+.format-preview {
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted, #6c757d);
+
+  code {
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    background: var(--surface-color, #f8f9fa);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+  }
+}
+
+.results {
+  margin-bottom: 1.5rem;
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    span {
+      font-size: 0.85rem;
+      color: var(--text-muted, #6c757d);
+    }
+  }
+
+  .guid-list {
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .guid-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border-color, #ddd);
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.85rem;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: var(--surface-color, #f8f9fa);
+    }
+
+    code {
+      user-select: all;
+    }
+
+    .btn-copy {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      opacity: 0.5;
+      transition: opacity 0.15s;
+
+      &:hover {
+        opacity: 1;
+        background: var(--hover-color, #e9ecef);
+      }
+    }
+  }
+}
+
+.btn-primary {
+  padding: 0.45rem 1.25rem;
+  background: var(--primary-color, #4a90d9);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #3a7bc8;
+  }
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-color, #ddd);
+  background: var(--surface-color, #f8f9fa);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hover-color, #e9ecef);
+  }
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #ddd);
+  background: var(--surface-color, #f8f9fa);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: var(--hover-color, #e9ecef);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .options-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

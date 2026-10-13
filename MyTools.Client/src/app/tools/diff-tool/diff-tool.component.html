@@ -1,0 +1,64 @@
+<div class="tool-container">
+  <h1>Diff Tool</h1>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="left-input">Original</label>
+      <textarea
+        id="left-input"
+        [(ngModel)]="leftInput"
+        placeholder="Paste original text here..."
+        rows="16"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <div class="panel">
+      <label for="right-input">Modified</label>
+      <textarea
+        id="right-input"
+        [(ngModel)]="rightInput"
+        placeholder="Paste modified text here..."
+        rows="16"
+        spellcheck="false"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="options-bar">
+    <button (click)="compare()" [disabled]="!leftInput.trim() && !rightInput.trim()" class="btn-primary">
+      Compare
+    </button>
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+
+  @if (hasCompared) {
+    <div class="diff-output">
+      <div class="diff-header">
+        <span class="legend removed-legend">Removed</span>
+        <span class="legend added-legend">Added</span>
+        <span class="legend changed-legend">Changed</span>
+      </div>
+
+      <div class="diff-table">
+        <div class="diff-side left-side">
+          @for (line of diffResult; track $index) {
+            <div class="diff-line" [class]="'diff-line ' + line.type">
+              <span class="line-num">{{ line.lineNumLeft ?? '' }}</span>
+              <span class="line-content">{{ line.contentLeft }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="diff-side right-side">
+          @for (line of diffResult; track $index) {
+            <div class="diff-line" [class]="'diff-line ' + line.type">
+              <span class="line-num">{{ line.lineNumRight ?? '' }}</span>
+              <span class="line-content">{{ line.contentRight }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

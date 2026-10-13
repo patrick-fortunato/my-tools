@@ -1,0 +1,223 @@
+.tool-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.options-bar {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color, #f8f9fa);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  flex-wrap: wrap;
+
+  .flags-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted, #6c757d);
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted, #6c757d);
+  }
+
+  .checkbox-option {
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      cursor: pointer;
+    }
+  }
+
+  .input-pattern {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: 2px solid var(--primary-color, #4a90d9);
+      outline-offset: -1px;
+      border-color: transparent;
+    }
+  }
+}
+
+.btn-primary {
+  margin-left: auto;
+  padding: 0.4rem 1.25rem;
+  background: var(--primary-color, #4a90d9);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #3a7bc8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #ddd);
+  background: var(--surface-color, #f8f9fa);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hover-color, #e9ecef);
+  }
+}
+
+.input-section {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-muted, #6c757d);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 0.5rem;
+  }
+
+  textarea {
+    width: 100%;
+    resize: vertical;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+
+    &:focus {
+      outline: 2px solid var(--primary-color, #4a90d9);
+      outline-offset: -1px;
+      border-color: transparent;
+    }
+  }
+}
+
+.error-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #fff3f3;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+  color: #c62828;
+  font-size: 0.9rem;
+}
+
+.results-section {
+  margin-top: 1.5rem;
+}
+
+.match-summary {
+  padding: 0.5rem 1rem;
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.match-item {
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  background: var(--surface-color, #f8f9fa);
+
+  .match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .match-value {
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--primary-color, #4a90d9);
+  }
+
+  .match-position {
+    font-size: 0.8rem;
+    color: var(--text-muted, #6c757d);
+  }
+}
+
+.groups-table {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+
+  th,
+  td {
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+    border: 1px solid var(--border-color, #ddd);
+  }
+
+  th {
+    background: var(--hover-color, #e9ecef);
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: var(--text-muted, #6c757d);
+  }
+
+  .group-value {
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+  }
+}
+
+.no-matches {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #fff8e1;
+  border: 1px solid #ffecb3;
+  border-radius: 4px;
+  color: #f57f17;
+  font-size: 0.9rem;
+}
+
+.toolbar {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+}

@@ -1,0 +1,69 @@
+<div class="tool-container">
+  <h1>Color Converter</h1>
+
+  <div class="options-bar">
+    <label class="option">
+      Color:
+      <input
+        type="text"
+        [(ngModel)]="colorInput"
+        placeholder="#ff5500, rgb(255,85,0), hsl(20,100%,50%)"
+        class="input-color"
+        spellcheck="false"
+      />
+    </label>
+
+    <input
+      type="color"
+      [(ngModel)]="pickerColor"
+      (ngModelChange)="onPickerChange()"
+      class="color-picker"
+      title="Pick a color"
+      aria-label="Color picker"
+    />
+
+    <button (click)="convert()" class="btn-primary" [disabled]="!colorInput.trim()">
+      Convert
+    </button>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  @if (result) {
+    <div class="results-section">
+      <div class="color-swatch" [style.background-color]="swatchColor"></div>
+
+      <div class="formats-grid">
+        <div class="format-item">
+          <label>Hex</label>
+          <div class="format-value">
+            <code>{{ result.hex }}</code>
+            <button (click)="copyValue(result.hex)" class="btn-copy" title="Copy" aria-label="Copy hex value">📋</button>
+          </div>
+        </div>
+
+        <div class="format-item">
+          <label>RGB</label>
+          <div class="format-value">
+            <code>{{ result.rgb }}</code>
+            <button (click)="copyValue(result.rgb)" class="btn-copy" title="Copy" aria-label="Copy RGB value">📋</button>
+          </div>
+        </div>
+
+        <div class="format-item">
+          <label>HSL</label>
+          <div class="format-value">
+            <code>{{ result.hsl }}</code>
+            <button (click)="copyValue(result.hsl)" class="btn-copy" title="Copy" aria-label="Copy HSL value">📋</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+</div>

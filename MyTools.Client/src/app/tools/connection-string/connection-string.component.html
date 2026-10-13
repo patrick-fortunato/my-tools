@@ -1,0 +1,103 @@
+<div class="tool-container">
+  <h1>Connection String Builder</h1>
+
+  <div class="mode-toggle">
+    <button [class.active]="mode === 'build'" (click)="mode = 'build'">Build</button>
+    <button [class.active]="mode === 'parse'" (click)="mode = 'parse'">Parse</button>
+  </div>
+
+  @if (mode === 'build') {
+    <div class="build-section">
+      <div class="provider-select">
+        <label for="provider">Provider:</label>
+        <select id="provider" [(ngModel)]="selectedProvider" (ngModelChange)="onProviderChange()">
+          @for (p of providers; track p.key) {
+            <option [value]="p.key">{{ p.label }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="fields-grid">
+        @for (field of visibleFields; track field.key) {
+          <div class="field-row">
+            <label [for]="field.key">{{ field.label }}</label>
+            @if (field.type === 'select') {
+              <select [id]="field.key" [(ngModel)]="fieldValues[field.key]">
+                @for (opt of field.options; track opt) {
+                  <option [value]="opt">{{ opt }}</option>
+                }
+              </select>
+            } @else {
+              <input
+                [id]="field.key"
+                type="text"
+                [(ngModel)]="fieldValues[field.key]"
+                [placeholder]="field.placeholder ?? ''"
+              />
+            }
+          </div>
+        }
+      </div>
+
+      <div class="action-bar">
+        <button (click)="build()" class="btn-primary">Build Connection String</button>
+      </div>
+
+      @if (output) {
+        <div class="output-section">
+          <label>Connection String:</label>
+          <div class="output-box">
+            <code>{{ output }}</code>
+            <button (click)="copyOutput()" class="btn-copy" title="Copy">📋</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (mode === 'parse') {
+    <div class="parse-section">
+      <label for="parse-input">Paste connection string:</label>
+      <textarea
+        id="parse-input"
+        [(ngModel)]="parseInput"
+        placeholder="Server=localhost;Database=MyDb;User Id=sa;Password=pass123;"
+        rows="4"
+        spellcheck="false"
+      ></textarea>
+
+      <div class="action-bar">
+        <button (click)="parse()" [disabled]="!parseInput.trim()" class="btn-primary">Parse</button>
+      </div>
+
+      @if (parsedFields.length > 0) {
+        <div class="parsed-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (field of parsedFields; track field.key) {
+                <tr>
+                  <td>{{ field.key }}</td>
+                  <td><code>{{ field.value }}</code></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear All</button>
+  </div>
+</div>

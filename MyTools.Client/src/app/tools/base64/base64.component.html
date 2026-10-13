@@ -1,0 +1,47 @@
+<div class="tool-container">
+  <h1>Base64 Encoder / Decoder</h1>
+
+  <div class="mode-toggle">
+    <button [class.active]="mode === 'encode'" (click)="mode = 'encode'; convert()">Encode</button>
+    <button [class.active]="mode === 'decode'" (click)="mode = 'decode'; convert()">Decode</button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="input-area">{{ mode === 'encode' ? 'Plain Text' : 'Base64 Input' }}</label>
+      <textarea
+        id="input-area"
+        [(ngModel)]="input"
+        (ngModelChange)="convert()"
+        placeholder="{{ mode === 'encode' ? 'Enter text to encode...' : 'Enter Base64 to decode...' }}"
+        rows="10"
+      ></textarea>
+    </div>
+
+    <div class="panel-actions">
+      <button class="icon-btn" (click)="swap()" title="Swap input and output" aria-label="Swap input and output">⇅</button>
+    </div>
+
+    <div class="panel">
+      <label for="output-area">{{ mode === 'encode' ? 'Base64 Output' : 'Decoded Text' }}</label>
+      <textarea
+        id="output-area"
+        [ngModel]="output"
+        readonly
+        placeholder="Result will appear here..."
+        rows="10"
+      ></textarea>
+      <div class="output-actions">
+        <button (click)="copyOutput()" [disabled]="!output" class="btn-sm">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear All</button>
+  </div>
+</div>

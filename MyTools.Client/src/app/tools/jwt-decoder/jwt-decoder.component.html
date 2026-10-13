@@ -1,0 +1,55 @@
+<div class="tool-container">
+  <h1>JWT Decoder</h1>
+
+  <div class="input-section">
+    <label for="jwt-input">Paste JWT</label>
+    <textarea id="jwt-input" [(ngModel)]="input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOi..." rows="4" spellcheck="false"></textarea>
+    <div class="action-bar">
+      <button (click)="decode()" [disabled]="!input.trim()" class="btn-primary">Decode</button>
+      <button (click)="clear()" class="btn-secondary">Clear</button>
+    </div>
+  </div>
+
+  @if (decoded) {
+    <div class="status-bar" [class.expired]="decoded.isExpired" [class.valid]="!decoded.isExpired && decoded.expiresAt">
+      @if (decoded.isExpired) {
+        <span class="status-icon">⚠️</span> Token expired on {{ decoded.expiresAt?.toLocaleString() }}
+      } @else if (decoded.expiresAt) {
+        <span class="status-icon">✓</span> Valid — expires in {{ decoded.timeRemaining }}
+      } @else {
+        <span class="status-icon">ℹ️</span> No expiration claim (exp) present
+      }
+    </div>
+
+    @if (standardClaims.length > 0) {
+      <div class="claims-section">
+        <h3>Standard Claims</h3>
+        <div class="claims-grid">
+          @for (claim of standardClaims; track claim.key) {
+            <div class="claim-item">
+              <span class="claim-label">{{ claim.label }} ({{ claim.key }})</span>
+              <span class="claim-value">{{ claim.value }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="sections">
+      <div class="section">
+        <h3>Header</h3>
+        <pre>{{ formatJson(decoded.header) }}</pre>
+      </div>
+      <div class="section">
+        <h3>Payload</h3>
+        <pre>{{ formatJson(decoded.payload) }}</pre>
+      </div>
+      <div class="section">
+        <h3>Signature</h3>
+        <code class="signature">{{ decoded.signature }}</code>
+      </div>
+    </div>
+  }
+
+  @if (errorMessage) { <div class="error-message" role="alert">{{ errorMessage }}</div> }
+</div>

@@ -1,0 +1,35 @@
+{
+  "name": "my-tools.client",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "packageManager": "npm@11.12.1",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "js-yaml": "^5.2.1",
+    "marked": "^18.0.6",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "turndown": "^7.2.4"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.19",
+    "@angular/cli": "^21.2.19",
+    "@angular/compiler-cli": "^21.2.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/turndown": "^5.0.6",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2"
+  }
+}

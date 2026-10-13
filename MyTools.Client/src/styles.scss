@@ -1,0 +1,422 @@
+// Matrix (dark) theme - DEFAULT
+:root {
+  --primary-color: #00ff41;
+  --primary-hover: #00cc33;
+  --border-color: #1a3a1a;
+  --surface-color: #0a1a0a;
+  --hover-color: #0d2b0d;
+  --input-bg: #0a0f0a;
+  --readonly-bg: #0a1a0a;
+  --text-color: #c0ffc0;
+  --text-muted: #88bb88;
+  --bg-color: #050a05;
+  --nav-bg: #0a1a0a;
+  --card-border: #1a3a1a;
+  --card-hover-shadow: rgba(0, 255, 65, 0.15);
+  --error-bg: #1a0a0a;
+  --error-border: #4a1a1a;
+  --error-color: #ff4444;
+  --success-bg: #0a1a0a;
+  --success-border: #1a4a1a;
+  --success-color: #00ff41;
+}
+
+// Light theme
+[data-theme="light"] {
+  --primary-color: #4a90d9;
+  --primary-hover: #3a7bc8;
+  --border-color: #dee2e6;
+  --surface-color: #f8f9fa;
+  --hover-color: #e9ecef;
+  --input-bg: #ffffff;
+  --readonly-bg: #f8f9fa;
+  --text-color: #212529;
+  --text-muted: #6c757d;
+  --bg-color: #ffffff;
+  --nav-bg: #f8f9fa;
+  --card-border: #dee2e6;
+  --card-hover-shadow: rgba(0, 0, 0, 0.08);
+  --error-bg: #fff3f3;
+  --error-border: #ffcdd2;
+  --error-color: #c62828;
+  --success-bg: #e8f5e9;
+  --success-border: #a5d6a7;
+  --success-color: #2e7d32;
+}
+
+// Autumn theme
+[data-theme="autumn"] {
+  --primary-color: #cc5500;
+  --primary-hover: #b34700;
+  --border-color: #3d2b1a;
+  --surface-color: #1a1008;
+  --hover-color: #2a1a0d;
+  --input-bg: #140c05;
+  --readonly-bg: #1a1008;
+  --text-color: #f0d9b5;
+  --text-muted: #a08060;
+  --bg-color: #0f0a05;
+  --nav-bg: #1a1008;
+  --card-border: #3d2b1a;
+  --card-hover-shadow: rgba(204, 85, 0, 0.2);
+  --error-bg: #2a0a0a;
+  --error-border: #5a2020;
+  --error-color: #ff6644;
+  --success-bg: #1a2a0a;
+  --success-border: #3a5a1a;
+  --success-color: #88cc44;
+}
+
+// Winter theme
+[data-theme="winter"] {
+  --primary-color: #5ba8d9;
+  --primary-hover: #4a95c4;
+  --border-color: #1a2a3d;
+  --surface-color: #0a1520;
+  --hover-color: #0d1f30;
+  --input-bg: #060f18;
+  --readonly-bg: #0a1520;
+  --text-color: #d0e8f8;
+  --text-muted: #6a8aa8;
+  --bg-color: #040a10;
+  --nav-bg: #0a1520;
+  --card-border: #1a2a3d;
+  --card-hover-shadow: rgba(91, 168, 217, 0.15);
+  --error-bg: #1a0a10;
+  --error-border: #4a1a2a;
+  --error-color: #ff6688;
+  --success-bg: #0a1a20;
+  --success-border: #1a4a4a;
+  --success-color: #55cccc;
+}
+
+// Spring theme
+[data-theme="spring"] {
+  --primary-color: #e0599e;
+  --primary-hover: #c94d8a;
+  --border-color: #3d1a2a;
+  --surface-color: #1a0a12;
+  --hover-color: #2a0d1a;
+  --input-bg: #140810;
+  --readonly-bg: #1a0a12;
+  --text-color: #f8d0e8;
+  --text-muted: #a06888;
+  --bg-color: #0f050a;
+  --nav-bg: #1a0a12;
+  --card-border: #3d1a2a;
+  --card-hover-shadow: rgba(224, 89, 158, 0.15);
+  --error-bg: #2a0a0a;
+  --error-border: #5a2020;
+  --error-color: #ff5555;
+  --success-bg: #0a2a1a;
+  --success-border: #1a5a3a;
+  --success-color: #55dd88;
+}
+
+// Summer theme
+[data-theme="summer"] {
+  --primary-color: #f0a030;
+  --primary-hover: #d89028;
+  --border-color: #3d3010;
+  --surface-color: #1a1408;
+  --hover-color: #2a200d;
+  --input-bg: #141005;
+  --readonly-bg: #1a1408;
+  --text-color: #f8ecd0;
+  --text-muted: #a89060;
+  --bg-color: #0f0c05;
+  --nav-bg: #1a1408;
+  --card-border: #3d3010;
+  --card-hover-shadow: rgba(240, 160, 48, 0.2);
+  --error-bg: #2a0a0a;
+  --error-border: #5a2020;
+  --error-color: #ff6644;
+  --success-bg: #1a2a0a;
+  --success-border: #3a5a1a;
+  --success-color: #88cc44;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+// Fixed, full-viewport themed background layer.
+// Rendered behind all content so it stays put while the page scrolls.
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--bg-color);
+  background-image: var(--bg-image, none);
+  background-repeat: var(--bg-repeat, no-repeat);
+  background-size: var(--bg-size, cover);
+  background-position: center center;
+  // NOTE: no `background-attachment: fixed` here. The element is already
+  // position:fixed + inset:0 (pinned to the viewport), so the image stays put
+  // on scroll. Adding background-attachment:fixed on a fixed-positioned element
+  // causes the background to fail to paint in Chromium.
+}
+
+// Each theme uses a themed photo from public/background/, with a dark
+// gradient overlay on top so foreground text stays legible over the image.
+// Matrix - DEFAULT
+:root {
+  --bg-image:
+    linear-gradient(rgba(5, 10, 5, 0.72), rgba(5, 10, 5, 0.82)),
+    url('/background/matrix.jpg');
+}
+
+[data-theme="light"] {
+  --bg-image:
+    linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.70)),
+    url('/background/light.jpg');
+}
+
+[data-theme="autumn"] {
+  --bg-image:
+    linear-gradient(rgba(15, 10, 5, 0.70), rgba(15, 10, 5, 0.82)),
+    url('/background/autumn.jpg');
+}
+
+[data-theme="winter"] {
+  --bg-image:
+    linear-gradient(rgba(4, 10, 16, 0.70), rgba(4, 10, 16, 0.82)),
+    url('/background/winter.jpg');
+}
+
+[data-theme="spring"] {
+  --bg-image:
+    linear-gradient(rgba(15, 5, 10, 0.70), rgba(15, 5, 10, 0.82)),
+    url('/background/sping.jpg');
+}
+
+[data-theme="summer"] {
+  --bg-image:
+    linear-gradient(rgba(15, 12, 5, 0.68), rgba(15, 12, 5, 0.80)),
+    url('/background/summer.jpg');
+}
+
+[data-theme="light"] body,
+[data-theme="light"] {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+}
+
+button {
+  font-family: inherit;
+  color: var(--text-color);
+}
+
+// Active/primary buttons need dark text on bright background
+button.active,
+button.btn-primary,
+button.btn-convert,
+.mode-toggle button.active,
+.mode-btn.active,
+.op-btn.active,
+button[style*="background"],
+button[class*="primary"],
+button[class*="convert"],
+button[class*="active"] {
+  color: #000 !important;
+}
+
+[data-theme="light"] button.active,
+[data-theme="light"] button.btn-primary,
+[data-theme="light"] button.btn-convert,
+[data-theme="light"] .mode-toggle button.active,
+[data-theme="light"] .mode-btn.active,
+[data-theme="light"] .op-btn.active {
+  color: #fff !important;
+}
+
+[data-theme="autumn"] button.active,
+[data-theme="autumn"] button.btn-primary,
+[data-theme="autumn"] button.btn-convert,
+[data-theme="autumn"] .mode-toggle button.active,
+[data-theme="autumn"] .mode-btn.active,
+[data-theme="autumn"] .op-btn.active {
+  color: #fff !important;
+}
+
+[data-theme="winter"] button.active,
+[data-theme="winter"] button.btn-primary,
+[data-theme="winter"] button.btn-convert,
+[data-theme="winter"] .mode-toggle button.active,
+[data-theme="winter"] .mode-btn.active,
+[data-theme="winter"] .op-btn.active {
+  color: #000 !important;
+}
+
+[data-theme="spring"] button.active,
+[data-theme="spring"] button.btn-primary,
+[data-theme="spring"] button.btn-convert,
+[data-theme="spring"] .mode-toggle button.active,
+[data-theme="spring"] .mode-btn.active,
+[data-theme="spring"] .op-btn.active {
+  color: #000 !important;
+}
+
+[data-theme="summer"] button.active,
+[data-theme="summer"] button.btn-primary,
+[data-theme="summer"] button.btn-convert,
+[data-theme="summer"] .mode-toggle button.active,
+[data-theme="summer"] .mode-btn.active,
+[data-theme="summer"] .op-btn.active {
+  color: #000 !important;
+}
+
+select, input[type="text"], input[type="number"], textarea {
+  color: var(--text-color);
+  background: var(--input-bg);
+}
+
+// Markdown preview - terminal-style code blocks
+// Applied globally so they work inside [innerHTML] bindings
+.preview-pane .terminal-block,
+.preview-content .terminal-block {
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  overflow: hidden;
+  background: #1e1e1e;
+}
+
+.preview-pane .terminal-block .terminal-header,
+.preview-content .terminal-block .terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  background: #2d2d2d;
+  border-bottom: 1px solid #444;
+}
+
+.preview-pane .terminal-block .terminal-dots,
+.preview-content .terminal-block .terminal-dots {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: #f55;
+}
+
+.preview-pane .terminal-block .terminal-title,
+.preview-content .terminal-block .terminal-title {
+  font-size: 0.7rem;
+  color: #999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.preview-pane .terminal-block pre,
+.preview-content .terminal-block pre {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: #1e1e1e;
+  border: none;
+  border-radius: 0;
+  overflow-x: auto;
+}
+
+.preview-pane .terminal-block pre code,
+.preview-content .terminal-block pre code {
+  display: block;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: #00ff41;
+  font-family: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+// Markdown preview pane - general rendered content styles
+.preview-pane {
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  h1 { font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; }
+  h3 { font-size: 1.15rem; }
+
+  p { margin-bottom: 0.75rem; }
+
+  code {
+    padding: 0.15rem 0.4rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.8em;
+  }
+
+  > pre, pre:not(.terminal-block pre) {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #1e1e1e;
+    border-radius: 6px;
+    border: 1px solid #444;
+    overflow-x: auto;
+
+    code {
+      display: block;
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 0;
+      color: #00ff41;
+      font-family: 'Cascadia Code', 'Cascadia Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      white-space: pre;
+    }
+  }
+
+  blockquote {
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--primary-color);
+    background: var(--surface-color);
+    color: var(--text-muted);
+  }
+
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+  ul li, ol li { margin-bottom: 0.25rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.75rem;
+
+    th, td {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    th { background: var(--surface-color); font-weight: 600; }
+  }
+
+  a { color: var(--primary-color); text-decoration: none; &:hover { text-decoration: underline; } }
+  img { max-width: 100%; height: auto; border-radius: 4px; }
+  hr { border: none; border-top: 1px solid var(--border-color); margin: 1rem 0; }
+}

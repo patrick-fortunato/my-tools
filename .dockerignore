@@ -1,0 +1,25 @@
+# Build outputs
+**/bin/
+**/obj/
+**/dist/
+MyTools.Api/wwwroot/
+
+# Node
+**/node_modules/
+
+# IDE / VCS
+.vs/
+.vscode/
+.git/
+.gitignore
+.kiro/
+
+# Docker
+Dockerfile
+.dockerignore
+compose.yaml
+
+# Misc
+**/*.user
+**/.DS_Store
+README.md

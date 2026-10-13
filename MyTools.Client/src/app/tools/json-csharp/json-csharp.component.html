@@ -1,0 +1,88 @@
+<div class="tool-container">
+  <h1>Type Converter</h1>
+
+  <div class="format-bar">
+    <div class="format-select">
+      <label for="source-format">From:</label>
+      <select id="source-format" [(ngModel)]="sourceFormat" (ngModelChange)="onSourceChange()">
+        @for (fmt of sourceFormats; track fmt.key) {
+          <option [value]="fmt.key">{{ fmt.label }}</option>
+        }
+      </select>
+    </div>
+
+    <button
+      class="swap-btn"
+      (click)="swap()"
+      [disabled]="!canSwap"
+      title="Swap source and target"
+      aria-label="Swap source and target"
+    >⇄</button>
+
+    <div class="format-select">
+      <label for="target-format">To:</label>
+      <select id="target-format" [(ngModel)]="targetFormat">
+        @for (fmt of targetFormats; track fmt.key) {
+          <option [value]="fmt.key">{{ fmt.label }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="options-bar">
+    @if (showRootClassName) {
+      <label class="option">
+        Root class name:
+        <input type="text" [(ngModel)]="rootClassName" class="input-sm" />
+      </label>
+    }
+    @if (showTestValues) {
+      <label class="option checkbox-option">
+        <input type="checkbox" [(ngModel)]="includeTestValues" />
+        Include test values
+      </label>
+    }
+    <button (click)="convert()" [disabled]="!input.trim() || isProcessing" class="btn-convert">
+      Convert
+    </button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="input-area">Input</label>
+      <textarea
+        id="input-area"
+        [(ngModel)]="input"
+        placeholder="Paste content here..."
+        rows="18"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <div class="panel">
+      <label for="output-area">Output</label>
+      <textarea
+        id="output-area"
+        [value]="output"
+        readonly
+        placeholder="Result will appear here..."
+        rows="18"
+        spellcheck="false"
+      ></textarea>
+      <div class="output-actions">
+        @if (isProcessing) {
+          <span class="processing">Processing...</span>
+        }
+        <button (click)="copyOutput()" [disabled]="!output" class="btn-sm">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear All</button>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="tool-container">
+  <h1>Data Generator</h1>
+
+  <div class="mode-toggle">
+    <button [class.active]="mode === 'manual'" (click)="mode = 'manual'">Define Schema</button>
+    <button [class.active]="mode === 'sql'" (click)="mode = 'sql'">From CREATE TABLE</button>
+  </div>
+
+  <div class="options-bar">
+    <label class="option">
+      Table name:
+      <input type="text" [(ngModel)]="tableName" class="input-sm" />
+    </label>
+    <label class="option">
+      Rows:
+      <input type="number" [(ngModel)]="rowCount" min="1" max="1000" class="input-sm input-num" />
+    </label>
+    <label class="option">
+      Output:
+      <select [(ngModel)]="outputFormat">
+        <option value="json">JSON</option>
+        <option value="insert">INSERT Statements</option>
+      </select>
+    </label>
+  </div>
+
+  @if (mode === 'manual') {
+    <div class="schema-section">
+      <div class="schema-header">
+        <span>Columns</span>
+        <button (click)="addColumn()" class="btn-sm">+ Add Column</button>
+      </div>
+      <div class="column-list">
+        <div class="column-header">
+          <span>Name</span>
+          <span>Type</span>
+          <span>Nullable</span>
+          <span></span>
+        </div>
+        @for (col of columns; track $index) {
+          <div class="column-row">
+            <input type="text" [(ngModel)]="col.name" placeholder="ColumnName" />
+            <select [(ngModel)]="col.type">
+              @for (t of typeOptions; track t) {
+                <option [value]="t">{{ t }}</option>
+              }
+            </select>
+            <label class="nullable-check">
+              <input type="checkbox" [(ngModel)]="col.nullable" />
+            </label>
+            <button (click)="removeColumn($index)" class="btn-remove" title="Remove">✕</button>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (mode === 'sql') {
+    <div class="sql-section">
+      <label for="sql-input">CREATE TABLE Statement:</label>
+      <textarea
+        id="sql-input"
+        [(ngModel)]="sqlInput"
+        placeholder="CREATE TABLE [dbo].[Users] (
+    Id INT NOT NULL IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(255) NULL
+)"
+        rows="8"
+        spellcheck="false"
+      ></textarea>
+    </div>
+  }
+
+  <div class="action-bar">
+    <button (click)="generate()" class="btn-primary">Generate Data</button>
+  </div>
+
+  @if (output) {
+    <div class="output-section">
+      <div class="output-header">
+        <label>Output</label>
+        <button (click)="copyOutput()" class="btn-sm">Copy</button>
+      </div>
+      <textarea
+        [value]="output"
+        readonly
+        rows="16"
+        spellcheck="false"
+        class="output-area"
+      ></textarea>
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear Output</button>
+  </div>
+</div>

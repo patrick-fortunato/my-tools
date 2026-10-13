@@ -1,0 +1,31 @@
+<div class="tool-container">
+  <h1>String Case Converter</h1>
+
+  <div class="input-section">
+    <label for="case-input">Input (one string per line for batch conversion)</label>
+    <textarea
+      id="case-input"
+      [(ngModel)]="input"
+      placeholder="Enter text to convert... (e.g., myVariableName, my-variable-name, my_variable_name)"
+      rows="4"
+      spellcheck="false"
+    ></textarea>
+  </div>
+
+  <div class="options-bar">
+    <button (click)="convert()" [disabled]="!input.trim()" class="btn-primary">Convert</button>
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+
+  @if (results.length > 0) {
+    <div class="results-list">
+      @for (result of results; track result.label) {
+        <div class="result-row">
+          <span class="case-label">{{ result.label }}</span>
+          <code class="case-value">{{ result.value }}</code>
+          <button class="btn-sm" (click)="copyValue(result.value)" title="Copy">Copy</button>
+        </div>
+      }
+    </div>
+  }
+</div>

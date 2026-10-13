@@ -1,0 +1,70 @@
+<div class="tool-container">
+  <h1>HTML ↔ Markdown Converter</h1>
+
+  <div class="options-bar">
+    <div class="mode-toggle">
+      <button
+        class="mode-btn"
+        [class.active]="mode === 'html-to-md'"
+        (click)="mode = 'html-to-md'"
+      >HTML → Markdown</button>
+      <button
+        class="mode-btn"
+        [class.active]="mode === 'md-to-html'"
+        (click)="mode = 'md-to-html'"
+      >Markdown → HTML</button>
+    </div>
+
+    <button (click)="convert()" [disabled]="!input.trim()" class="btn-primary">Convert</button>
+    <button (click)="swap()" [disabled]="!output" class="btn-secondary" title="Swap direction with contents">⇄ Swap</button>
+    <button (click)="copyOutput()" [disabled]="!output" class="btn-secondary">Copy</button>
+
+    <label class="preview-toggle">
+      <input type="checkbox" [(ngModel)]="showPreview" />
+      Show Preview
+    </label>
+
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="html-md-input">{{ inputLabel }}</label>
+      <textarea
+        id="html-md-input"
+        [(ngModel)]="input"
+        [placeholder]="inputPlaceholder"
+        rows="14"
+        spellcheck="false"
+      ></textarea>
+      @if (showPreview && input.trim()) {
+        <div class="preview-pane">
+          <span class="preview-label">Preview ({{ inputLabel }})</span>
+          <div class="preview-content" [innerHTML]="inputPreviewHtml"></div>
+        </div>
+      }
+    </div>
+
+    <div class="panel">
+      <label for="html-md-output">{{ outputLabel }}</label>
+      <textarea
+        id="html-md-output"
+        [value]="output"
+        readonly
+        placeholder="Result will appear here..."
+        rows="14"
+        spellcheck="false"
+      ></textarea>
+      @if (showPreview && output.trim()) {
+        <div class="preview-pane">
+          <span class="preview-label">Preview ({{ outputLabel }})</span>
+          <div class="preview-content" [innerHTML]="outputPreviewHtml"></div>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+</div>

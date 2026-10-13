@@ -1,0 +1,45 @@
+<div class="tool-container">
+  <h1>Hash Generator</h1>
+
+  <div class="input-section">
+    <label for="hash-input">Input Text</label>
+    <textarea id="hash-input" [(ngModel)]="input" placeholder="Enter text to hash..." rows="5" spellcheck="false"></textarea>
+  </div>
+
+  <div class="options-bar">
+    <label class="option checkbox-option">
+      <input type="checkbox" [(ngModel)]="useHmac" />
+      HMAC
+    </label>
+    @if (useHmac) {
+      <label class="option">
+        Key:
+        <input type="text" [(ngModel)]="hmacKey" placeholder="HMAC secret key" class="input-sm" />
+      </label>
+    }
+    <label class="option">
+      Format:
+      <select [(ngModel)]="outputFormat">
+        <option value="hex-lower">Hex (lowercase)</option>
+        <option value="hex-upper">Hex (UPPERCASE)</option>
+        <option value="base64">Base64</option>
+      </select>
+    </label>
+    <button (click)="generate()" [disabled]="!input.trim()" class="btn-primary">Generate</button>
+  </div>
+
+  @if (results.length > 0) {
+    <div class="results">
+      @for (r of results; track r.algorithm) {
+        <div class="hash-row">
+          <span class="hash-label">{{ r.algorithm }}</span>
+          <code class="hash-value">{{ r.hash }}</code>
+          <button (click)="copyHash(r.hash)" class="btn-copy" title="Copy">📋</button>
+        </div>
+      }
+    </div>
+  }
+
+  @if (errorMessage) { <div class="error-message" role="alert">{{ errorMessage }}</div> }
+  <div class="toolbar"><button (click)="clear()" class="btn-secondary">Clear</button></div>
+</div>

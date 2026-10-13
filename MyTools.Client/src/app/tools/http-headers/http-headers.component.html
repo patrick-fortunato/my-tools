@@ -1,0 +1,56 @@
+<div class="tool-container">
+  <h1>HTTP Header Parser</h1>
+
+  <div class="input-section">
+    <label for="raw-headers">Raw HTTP Headers</label>
+    <textarea
+      id="raw-headers"
+      [(ngModel)]="rawHeaders"
+      placeholder="Paste raw HTTP headers here (Key: Value, one per line)..."
+      rows="10"
+      spellcheck="false"
+    ></textarea>
+  </div>
+
+  <div class="options-bar">
+    <button (click)="parse()" class="btn-primary" [disabled]="!rawHeaders.trim()">
+      Parse Headers
+    </button>
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  @if (parsedHeaders.length > 0) {
+    <div class="results-section">
+      <table class="headers-table">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (header of parsedHeaders; track header.key + header.value) {
+            <tr>
+              <td class="header-key">{{ header.key }}</td>
+              <td class="header-value">{{ header.value }}</td>
+              <td>
+                @if (header.category) {
+                  <span [class]="getCategoryClass(header.category)">{{ header.category }}</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <div class="toolbar">
+    <span class="hint">Supports standard HTTP header format: "Header-Name: value"</span>
+  </div>
+</div>

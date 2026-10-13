@@ -1,0 +1,36 @@
+<div class="tool-container">
+  <h1>URL Encoder / Decoder</h1>
+
+  <div class="options-bar">
+    <div class="mode-toggle">
+      <button [class.active]="mode === 'encode'" (click)="mode = 'encode'">Encode</button>
+      <button [class.active]="mode === 'decode'" (click)="mode = 'decode'">Decode</button>
+    </div>
+    <label class="option">
+      Scope:
+      <select [(ngModel)]="scope">
+        <option value="component">encodeURIComponent</option>
+        <option value="full">encodeURI</option>
+      </select>
+    </label>
+    <button (click)="convert()" [disabled]="!input.trim()" class="btn-primary">Convert</button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="input-area">{{ mode === 'encode' ? 'Plain Text' : 'Encoded Input' }}</label>
+      <textarea id="input-area" [(ngModel)]="input" placeholder="Paste text here..." rows="10" spellcheck="false"></textarea>
+    </div>
+    <div class="panel-actions">
+      <button class="icon-btn" (click)="swap()" title="Swap" aria-label="Swap">⇅</button>
+    </div>
+    <div class="panel">
+      <label for="output-area">{{ mode === 'encode' ? 'Encoded Output' : 'Decoded Text' }}</label>
+      <textarea id="output-area" [value]="output" readonly placeholder="Result..." rows="10" spellcheck="false"></textarea>
+      <div class="output-actions"><button (click)="copyOutput()" [disabled]="!output" class="btn-sm">Copy</button></div>
+    </div>
+  </div>
+
+  @if (errorMessage) { <div class="error-message" role="alert">{{ errorMessage }}</div> }
+  <div class="toolbar"><button (click)="clear()" class="btn-secondary">Clear All</button></div>
+</div>

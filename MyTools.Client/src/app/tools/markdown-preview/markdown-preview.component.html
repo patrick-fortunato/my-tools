@@ -1,0 +1,26 @@
+<div class="tool-container">
+  <h1>Markdown Preview</h1>
+
+  <div class="options-bar">
+    <button (click)="preview()" [disabled]="!input.trim()" class="btn-primary">Preview</button>
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <label for="md-input">Markdown</label>
+      <textarea
+        id="md-input"
+        [(ngModel)]="input"
+        placeholder="Write or paste Markdown here..."
+        rows="20"
+        spellcheck="false"
+      ></textarea>
+    </div>
+
+    <div class="panel">
+      <label>Preview</label>
+      <div class="preview-pane" [innerHTML]="renderedHtml"></div>
+    </div>
+  </div>
+</div>

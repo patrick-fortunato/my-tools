@@ -1,0 +1,58 @@
+<div class="tool-container">
+  <h1>GUID Generator</h1>
+
+  <div class="options-bar">
+    <label class="option">
+      Quantity:
+      <input type="number" [(ngModel)]="quantity" min="1" max="100" class="input-sm input-num" />
+    </label>
+
+    <label class="option">
+      Format:
+      <select [(ngModel)]="format">
+        @for (opt of formatOptions; track opt.key) {
+          <option [value]="opt.key">{{ opt.label }}</option>
+        }
+      </select>
+    </label>
+
+    @if (format !== 'base64') {
+      <label class="option">
+        Case:
+        <select [(ngModel)]="guidCase">
+          <option value="lower">lowercase</option>
+          <option value="upper">UPPERCASE</option>
+        </select>
+      </label>
+    }
+
+    <button (click)="generate()" class="btn-primary">Generate</button>
+  </div>
+
+  @if (format !== 'base64') {
+    <div class="format-preview">
+      Example: <code>{{ getExample() }}</code>
+    </div>
+  }
+
+  @if (guids.length > 0) {
+    <div class="results">
+      <div class="results-header">
+        <span>{{ guids.length }} GUID{{ guids.length > 1 ? 's' : '' }} generated</span>
+        <button (click)="copyAll()" class="btn-sm">Copy All</button>
+      </div>
+      <div class="guid-list">
+        @for (guid of guids; track $index) {
+          <div class="guid-item">
+            <code>{{ guid }}</code>
+            <button (click)="copyOne(guid)" class="btn-copy" title="Copy" aria-label="Copy GUID">📋</button>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary" [disabled]="guids.length === 0">Clear</button>
+  </div>
+</div>

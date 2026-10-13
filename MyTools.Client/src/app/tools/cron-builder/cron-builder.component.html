@@ -1,0 +1,57 @@
+<div class="tool-container">
+  <h1>Cron Expression Builder</h1>
+
+  <div class="options-bar">
+    <label class="option">
+      Expression:
+      <input
+        type="text"
+        [(ngModel)]="expression"
+        class="input-cron"
+        spellcheck="false"
+        placeholder="0 * * * *"
+      />
+    </label>
+
+    <label class="option checkbox-option">
+      <input type="checkbox" [(ngModel)]="useSixField" (ngModelChange)="onModeChange()" />
+      6-field (with seconds)
+    </label>
+
+    <button (click)="generate()" class="btn-primary" [disabled]="!expression.trim()">
+      Generate
+    </button>
+  </div>
+
+  <div class="field-reference">
+    <h3>Field Reference</h3>
+    <div class="fields-grid">
+      @for (field of fieldInfo; track field.label; let i = $index) {
+        <div class="field-item">
+          <span class="field-value">{{ expressionParts[i] || '—' }}</span>
+          <span class="field-label">{{ field.label }}</span>
+          <span class="field-range">{{ field.range }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message" role="alert">{{ errorMessage }}</div>
+  }
+
+  @if (nextRuns.length > 0) {
+    <div class="results-section">
+      <h3>Next 5 Scheduled Runs</h3>
+      <ol class="runs-list">
+        @for (run of nextRuns; track run) {
+          <li>{{ run }}</li>
+        }
+      </ol>
+    </div>
+  }
+
+  <div class="toolbar">
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+</div>

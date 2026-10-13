@@ -1,0 +1,44 @@
+<div class="tool-container">
+  <h1>Lorem Ipsum Generator</h1>
+
+  <div class="options-bar">
+    <div class="option">
+      <label for="gen-type">Type:</label>
+      <select id="gen-type" [(ngModel)]="generateType">
+        <option value="paragraphs">Paragraphs</option>
+        <option value="sentences">Sentences</option>
+        <option value="words">Words</option>
+      </select>
+    </div>
+
+    <div class="option">
+      <label for="gen-count">Count:</label>
+      <input
+        id="gen-count"
+        type="number"
+        [(ngModel)]="count"
+        min="1"
+        max="50"
+        class="input-sm"
+      />
+    </div>
+
+    <button (click)="generate()" class="btn-primary">Generate</button>
+    <button (click)="clear()" class="btn-secondary">Clear</button>
+  </div>
+
+  <div class="output-section">
+    <label for="lorem-output">Output</label>
+    <textarea
+      id="lorem-output"
+      [value]="output"
+      readonly
+      placeholder="Generated text will appear here..."
+      rows="14"
+      spellcheck="false"
+    ></textarea>
+    <div class="output-actions">
+      <button class="btn-sm" (click)="copyOutput()" [disabled]="!output" title="Copy to clipboard">Copy</button>
+    </div>
+  </div>
+</div>

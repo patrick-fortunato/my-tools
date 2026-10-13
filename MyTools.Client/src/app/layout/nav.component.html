@@ -1,0 +1,66 @@
+<nav class="main-nav" aria-label="Main navigation">
+  <a routerLink="/" class="nav-brand">🧰 My Tools</a>
+  <div class="nav-categories">
+    <div class="nav-category" (mouseenter)="openCategory = 'data'" (mouseleave)="openCategory = null">
+      <button class="category-btn">Data & DB</button>
+      @if (openCategory === 'data') {
+        <div class="dropdown">
+          <a routerLink="/tools/sql-formatter" routerLinkActive="active">SQL Formatter</a>
+          <a routerLink="/tools/connection-string" routerLinkActive="active">Connection Strings</a>
+          <a routerLink="/tools/data-generator" routerLinkActive="active">Data Generator</a>
+          <a routerLink="/tools/guid-generator" routerLinkActive="active">GUID Generator</a>
+        </div>
+      }
+    </div>
+    <div class="nav-category" (mouseenter)="openCategory = 'security'" (mouseleave)="openCategory = null">
+      <button class="category-btn">Security</button>
+      @if (openCategory === 'security') {
+        <div class="dropdown">
+          <a routerLink="/tools/base64" routerLinkActive="active">Base64</a>
+          <a routerLink="/tools/url-encoder" routerLinkActive="active">URL Encoder</a>
+          <a routerLink="/tools/hash-generator" routerLinkActive="active">Hash Generator</a>
+          <a routerLink="/tools/jwt-decoder" routerLinkActive="active">JWT Decoder</a>
+          <a routerLink="/tools/password-generator" routerLinkActive="active">Password Generator</a>
+        </div>
+      }
+    </div>
+    <div class="nav-category" (mouseenter)="openCategory = 'web'" (mouseleave)="openCategory = null">
+      <button class="category-btn">Web / API</button>
+      @if (openCategory === 'web') {
+        <div class="dropdown">
+          <a routerLink="/tools/json-csharp" routerLinkActive="active">Type Converter</a>
+          <a routerLink="/tools/json-utils" routerLinkActive="active">JSON Utilities</a>
+          <a routerLink="/tools/regex-tester" routerLinkActive="active">Regex Tester</a>
+          <a routerLink="/tools/http-headers" routerLinkActive="active">HTTP Headers</a>
+          <a routerLink="/tools/cron-builder" routerLinkActive="active">Cron Builder</a>
+          <a routerLink="/tools/color-converter" routerLinkActive="active">Color Converter</a>
+        </div>
+      }
+    </div>
+    <div class="nav-category" (mouseenter)="openCategory = 'text'" (mouseleave)="openCategory = null">
+      <button class="category-btn">Text</button>
+      @if (openCategory === 'text') {
+        <div class="dropdown">
+          <a routerLink="/tools/diff-tool" routerLinkActive="active">Diff Tool</a>
+          <a routerLink="/tools/string-case" routerLinkActive="active">String Case</a>
+          <a routerLink="/tools/lorem-generator" routerLinkActive="active">Lorem Ipsum</a>
+          <a routerLink="/tools/markdown-preview" routerLinkActive="active">Markdown Preview</a>
+          <a routerLink="/tools/html-markdown" routerLinkActive="active">HTML ↔ Markdown</a>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="theme-switcher" (mouseenter)="showThemeMenu = true" (mouseleave)="showThemeMenu = false">
+    <button class="theme-toggle" title="Theme" aria-label="Select theme" aria-haspopup="true">{{ themeIcon }}</button>
+    @if (showThemeMenu) {
+      <div class="theme-dropdown">
+        <button (click)="setTheme('matrix')" [class.active]="themeService.currentTheme() === 'matrix'" aria-label="Matrix theme">🖥️ Matrix</button>
+        <button (click)="setTheme('spring')" [class.active]="themeService.currentTheme() === 'spring'" aria-label="Spring theme">🌸 Spring</button>
+        <button (click)="setTheme('summer')" [class.active]="themeService.currentTheme() === 'summer'" aria-label="Summer theme">🌊 Summer</button>
+        <button (click)="setTheme('autumn')" [class.active]="themeService.currentTheme() === 'autumn'" aria-label="Autumn theme">🍂 Autumn</button>
+        <button (click)="setTheme('winter')" [class.active]="themeService.currentTheme() === 'winter'" aria-label="Winter theme">❄️ Winter</button>
+        <button (click)="setTheme('light')" [class.active]="themeService.currentTheme() === 'light'" aria-label="Light theme">☀️ Light</button>
+      </div>
+    }
+  </div>
+</nav>

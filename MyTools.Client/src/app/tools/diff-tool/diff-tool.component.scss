@@ -1,0 +1,195 @@
+.tool-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.panels {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+
+  .panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--text-muted, #6c757d);
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+    }
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color, #ddd);
+      border-radius: 4px;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      background: var(--input-bg, #fff);
+      color: var(--text-color, #212529);
+      tab-size: 4;
+
+      &:focus {
+        outline: 2px solid var(--primary-color, #4a90d9);
+        outline-offset: -1px;
+        border-color: transparent;
+      }
+    }
+  }
+}
+
+.options-bar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.btn-primary {
+  padding: 0.5rem 1.25rem;
+  background: var(--primary-color, #4a90d9);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #3a7bc8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color, #ddd);
+  background: var(--surface-color, #f8f9fa);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hover-color, #e9ecef);
+  }
+}
+
+.diff-output {
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.diff-header {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface-color, #f8f9fa);
+  border-bottom: 1px solid var(--border-color, #ddd);
+
+  .legend {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 500;
+
+    &.removed-legend {
+      background: #fdd;
+      color: #900;
+    }
+
+    &.added-legend {
+      background: #dfd;
+      color: #060;
+    }
+
+    &.changed-legend {
+      background: #ffd;
+      color: #660;
+    }
+  }
+}
+
+.diff-table {
+  display: flex;
+  overflow-x: auto;
+}
+
+.diff-side {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+
+  &.left-side {
+    border-right: 1px solid var(--border-color, #ddd);
+  }
+}
+
+.diff-line {
+  display: flex;
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  min-height: 1.6em;
+
+  &.removed {
+    background: #fdd;
+  }
+
+  &.added {
+    background: #dfd;
+  }
+
+  &.changed {
+    background: #ffd;
+  }
+
+  .line-num {
+    flex-shrink: 0;
+    width: 3rem;
+    padding: 0 0.5rem;
+    text-align: right;
+    color: var(--text-muted, #6c757d);
+    border-right: 1px solid var(--border-color, #ddd);
+    user-select: none;
+  }
+
+  .line-content {
+    flex: 1;
+    padding: 0 0.5rem;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 768px) {
+  .panels {
+    flex-direction: column;
+  }
+
+  .diff-table {
+    flex-direction: column;
+  }
+
+  .diff-side.left-side {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color, #ddd);
+  }
+}
